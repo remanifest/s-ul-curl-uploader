@@ -2,6 +2,11 @@
 
 Simple bash script for uploading files to your Seion Upload (s-ul.eu) account. Requires cURL and jq. Should work on any UNIX-based system, including macOS.
 
+Usage:
+- Place anywhere you want (/usr/bin/local/ works nicely)
+- chmod +x ./uploader.sh
+- uploader.sh file1 file2 file3
+
 Includes logic checks to ensure:
 - An API key was added to the script
 - The dependencies (cURL and jq) are installed
