@@ -1,4 +1,16 @@
 # s-ul-curl-uploader
-A simple bash script for uploading files to your s-ul.eu account using cURL and jq
 
-Just download the file, add your API key, chmod +x ./uploader.sh, then execute ./uploader.sh file1 file2 file3
+Simple bash script for uploading files to your Seion Upload (s-ul.eu) account. Requires cURL and jq. Should work on any UNIX-based system, including macOS.
+
+Includes logic checks to ensure:
+- An API key was added to the script
+- The dependencies (cURL and jq) are installed
+- A file (or files) was provided for upload
+- The file isn't too big to be uploaded to s-ul.eu
+- That the file was uploaded
+
+Returns:
+- URL of the uploaded file
+- If it's an image file, a thumbnail URL
+- A delete link for removing the file from s-ul.eu
+
