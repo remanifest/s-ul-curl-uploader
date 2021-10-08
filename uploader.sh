@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #### Script for uploading to s-ul.eu using personal key.
 #### Depends upon jq to parse the JSON response from s-ul.eu, and curl to execute the API call.
@@ -12,8 +12,7 @@
 key=
 
 # Make sure the API key was provided. If no key is provided, tell the user and exit.
-if [ -z "$key" ];
-then
+if [ -z "$key" ]; then
 	{ echo -e >&2 "\nYou must input your API key from \033[4;32mhttps://s-ul.eu/account/configurations\033[0m into this script. Do that, then try again.\n"; exit 1; }
 fi
 
