@@ -28,8 +28,7 @@ wizard=true
 file=$@
 
 # Make sure that an argument was provided for a file to upload. If not, tell the user and exit. If it was, grab the size and store it into $actualsize.
-if [ -z "$file" ];
-then
+if [ -z "$file" ]; then
 	{ echo -e >&2 "\nPlease specify a file to upload.\n"; exit 1; }
 fi
 
@@ -37,8 +36,7 @@ actualsize=$(wc -c <"$file")
 maxsize=209714177
 
 # Make sure the file being uploaded isn't too large. If it's too big, it'll be rejected by the s-ul.eu server, so we'll make sure we don't try.
-if [ $actualsize -ge $maxsize ];
-then
+if [ $actualsize -ge $maxsize ]; then
 	{ echo -e >&2 "\nSorry, your file is too large to be uploaded. Please try a smaller file.\n"; exit 1; }
 fi
 
@@ -48,15 +46,13 @@ do
 # create (read) the url variable, then echo the result of the curl execution & parsed jq value into that newly created variable
 	read url < <(echo $(curl -s -X ""$method"" """$postURL""?key=""$key""&wizard=""$wizard""" -F"file=@\"""$file""\"" | jq -r '.url'))
 # Make sure the upload happened, and the json was parsed into the url variable. If not, tell the user and exit. If it was, return the value.
-	if [ -z "$url" ];
-	then
+	if [ -z "$url" ]; then
 		{ echo -e >&2 "\nIt looks like there was an error uploading your file. Please check your connection and try again.\n"; exit 1; }
  	else
 		echo -e "\n\033[3mFile successfully uploaded\033[0m\n\033[4;32m$url\033[0m\n"
 	fi
 # If the uploaded file is an image, return the thumbnail URL as well.
-	if [[ $file =~ \.png$ ]] || [[ $file =~ \.jpg$ ]] || [[ $file =~ \.jpeg$ ]] || [[ $file =~ \.gif$ ]] || [[ $file =~ \.bmp$ ]] || [[ $file =~ \.tiff$ ]];
-	then 
+	if [[ $file =~ \.png$ ]] || [[ $file =~ \.jpg$ ]] || [[ $file =~ \.jpeg$ ]] || [[ $file =~ \.gif$ ]] || [[ $file =~ \.bmp$ ]] || [[ $file =~ \.tiff$ ]]; then 
 		echo -e "\t\033[1mThumbnail\033[0m: \033[4;32m$url?thumb=1""\033[0m\n"
 	fi
 # Provide the delete URL by returning the string following the last slash in the $url variable.
